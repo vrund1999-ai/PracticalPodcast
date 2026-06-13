@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your podcasts · PracticalPodcast</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="index.html">
+        <span class="brand__mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 3a4 4 0 0 0-4 4v5a4 4 0 0 0 8 0V7a4 4 0 0 0-4-4Z" fill="currentColor"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </span>
+        PracticalPodcast
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a href="library.html" aria-current="page">Podcasts</a>
+        <a href="topics.html">Discover</a>
+        <a href="account.html">Settings</a>
+      </nav>
+      <div class="topbar__spacer"></div>
+      <div class="topbar__actions">
+        <button class="icon-btn" data-theme-toggle aria-pressed="false" aria-label="Switch to light mode" title="Switch to light mode">
+          <svg data-icon-sun viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <svg data-icon-moon viewBox="0 0 24 24" fill="none" aria-hidden="true" style="display:none"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        </button>
+        <a href="account.html" class="avatar" aria-label="Your account">VR</a>
+      </div>
+    </header>
+
+    <main id="main" class="page">
+      <div class="page-head">
+        <div>
+          <h1>Your daily podcasts</h1>
+          <p>Three AI-hosted episodes generated every morning from the day's top stories.</p>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <div class="segmented" role="group" aria-label="Filter by length" data-length-filter>
+          <button type="button" data-len="all" aria-pressed="true">All lengths</button>
+          <button type="button" data-len="10" aria-pressed="false">10 min</button>
+          <button type="button" data-len="30" aria-pressed="false">30 min</button>
+          <button type="button" data-len="60" aria-pressed="false">1 hour</button>
+        </div>
+        <div class="toolbar__spacer"></div>
+        <label class="search">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="m20 20-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <span class="visually-hidden">Search episodes</span>
+          <input type="search" placeholder="Search episodes & topics" />
+        </label>
+      </div>
+
+      <!-- ===== TODAY ===== -->
+      <section class="day-section">
+        <div class="day-section__head">
+          <h2>Today</h2>
+          <span class="day-section__date">Saturday, June 13, 2026</span>
+        </div>
+        <div class="ep-grid">
+          <article class="ep-card" data-card-len="10" onclick="location.href='player.html'">
+            <div class="cover cover--mix">
+              <span class="cover__glyph" aria-hidden="true">🎧</span>
+              <span class="cover__len"><span class="badge badge--len badge--short">10 MIN</span></span>
+              <button class="cover__play" aria-label="Play The Quick Brief"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></button>
+            </div>
+            <div class="ep-card__body">
+              <h3 class="ep-card__title">The Quick Brief</h3>
+              <div class="ep-card__meta"><span>Generated 6:00 AM</span></div>
+              <div class="ep-card__tags"><span class="tag">Finance</span><span class="tag">Tech</span><span class="tag">+5</span></div>
+            </div>
+          </article>
+
+          <article class="ep-card" data-card-len="30" onclick="location.href='player.html'">
+            <div class="cover cover--tech">
+              <span class="cover__glyph" aria-hidden="true">🎙️</span>
+              <span class="cover__len"><span class="badge badge--len badge--mid">30 MIN</span></span>
+              <button class="cover__play" aria-label="Play The Daily Deep Dive"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></button>
+            </div>
+            <div class="ep-card__body">
+              <h3 class="ep-card__title">The Daily Deep Dive</h3>
+              <div class="ep-card__meta"><span>Generated 6:00 AM</span></div>
+              <div class="ep-card__tags"><span class="tag">Geopolitics</span><span class="tag">Markets</span><span class="tag">+6</span></div>
+            </div>
+          </article>
+
+          <article class="ep-card" data-card-len="60" onclick="location.href='player.html'">
+            <div class="cover cover--science">
+              <span class="cover__glyph" aria-hidden="true">📻</span>
+              <span class="cover__len"><span class="badge badge--len badge--long">1 HOUR</span></span>
+              <button class="cover__play" aria-label="Play The Full Story"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></button>
+            </div>
+            <div class="ep-card__body">
+              <h3 class="ep-card__title">The Full Story</h3>
+              <div class="ep-card__meta"><span>Generated 6:00 AM</span></div>
+              <div class="ep-card__tags"><span class="tag">Science</span><span class="tag">Politics</span><span class="tag">+9</span></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ===== YESTERDAY ===== -->
+      <section class="day-section">
+        <div class="day-section__head">
+          <h2>Yesterday</h2>
+          <span class="day-section__date">Friday, June 12, 2026</span>
+        </div>
+        <div class="ep-grid">
+          <article class="ep-card" data-card-len="10" onclick="location.href='player.html'">
+            <div class="cover cover--finance">
+              <span class="cover__glyph" aria-hidden="true">🎧</span>
+              <span class="cover__len"><span class="badge badge--len badge--short">10 MIN</span></span>
+              <button class="cover__play" aria-label="Play The Quick Brief"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></button>
+            </div>
+            <div class="ep-card__body">
+              <h3 class="ep-card__title">The Quick Brief</h3>
+              <div class="ep-card__meta"><span>Jun 12 · 6:00 AM</span></div>
+              <div class="ep-card__tags"><span class="tag">Energy</span><span class="tag">AI</span><span class="tag">+4</span></div>
+            </div>
+          </article>
+
+          <article class="ep-card" data-card-len="30" onclick="location.href='player.html'">
+            <div class="cover cover--geo">
+              <span class="cover__glyph" aria-hidden="true">🎙️</span>
+              <span class="cover__len"><span class="badge badge--len badge--mid">30 MIN</span></span>
+              <button class="cover__play" aria-label="Play The Daily Deep Dive"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></button>
+            </div>
+            <div class="ep-card__body">
+              <h3 class="ep-card__title">The Daily Deep Dive</h3>
+              <div class="ep-card__meta"><span>Jun 12 · 6:00 AM</span></div>
+              <div class="ep-card__tags"><span class="tag">Transportation</span><span class="tag">Business</span><span class="tag">+7</span></div>
+            </div>
+          </article>
+
+          <article class="ep-card" data-card-len="60" onclick="location.href='player.html'">
+            <div class="cover cover--politics">
+              <span class="cover__glyph" aria-hidden="true">📻</span>
+              <span class="cover__len"><span class="badge badge--len badge--long">1 HOUR</span></span>
+              <button class="cover__play" aria-label="Play The Full Story"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></button>
+            </div>
+            <div class="ep-card__body">
+              <h3 class="ep-card__title">The Full Story</h3>
+              <div class="ep-card__meta"><span>Jun 12 · 6:00 AM</span></div>
+              <div class="ep-card__tags"><span class="tag">Politics</span><span class="tag">Health</span><span class="tag">+8</span></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ===== EARLIER ===== -->
+      <section class="day-section">
+        <div class="day-section__head">
+          <h2>Thursday</h2>
+          <span class="day-section__date">June 11, 2026</span>
+        </div>
+        <div class="ep-grid">
+          <article class="ep-card" data-card-len="10" onclick="location.href='player.html'">
+            <div class="cover cover--ai">
+              <span class="cover__glyph" aria-hidden="true">🎧</span>
+              <span class="cover__len"><span class="badge badge--len badge--short">10 MIN</span></span>
+              <button class="cover__play" aria-label="Play The Quick Brief"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></button>
+            </div>
+            <div class="ep-card__body">
+              <h3 class="ep-card__title">The Quick Brief</h3>
+              <div class="ep-card__meta"><span>Jun 11 · 6:00 AM</span></div>
+              <div class="ep-card__tags"><span class="tag">AI</span><span class="tag">Markets</span><span class="tag">+3</span></div>
+            </div>
+          </article>
+
+          <article class="ep-card" data-card-len="30" onclick="location.href='player.html'">
+            <div class="cover cover--transport">
+              <span class="cover__glyph" aria-hidden="true">🎙️</span>
+              <span class="cover__len"><span class="badge badge--len badge--mid">30 MIN</span></span>
+              <button class="cover__play" aria-label="Play The Daily Deep Dive"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></button>
+            </div>
+            <div class="ep-card__body">
+              <h3 class="ep-card__title">The Daily Deep Dive</h3>
+              <div class="ep-card__meta"><span>Jun 11 · 6:00 AM</span></div>
+              <div class="ep-card__tags"><span class="tag">Climate</span><span class="tag">Science</span><span class="tag">+5</span></div>
+            </div>
+          </article>
+
+          <article class="ep-card" data-card-len="60" onclick="location.href='player.html'">
+            <div class="cover cover--health">
+              <span class="cover__glyph" aria-hidden="true">📻</span>
+              <span class="cover__len"><span class="badge badge--len badge--long">1 HOUR</span></span>
+              <button class="cover__play" aria-label="Play The Full Story"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></button>
+            </div>
+            <div class="ep-card__body">
+              <h3 class="ep-card__title">The Full Story</h3>
+              <div class="ep-card__meta"><span>Jun 11 · 6:00 AM</span></div>
+              <div class="ep-card__tags"><span class="tag">Health</span><span class="tag">Defense</span><span class="tag">+7</span></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <p data-empty-state hidden style="text-align:center;color:var(--text-faint);padding:40px">No episodes match this filter.</p>
+    </main>
+  </div>
+
+  <!-- Mini player -->
+  <div class="mini-player" role="region" aria-label="Now playing">
+    <div class="mini-player__now">
+      <div class="cover cover--mix mini-player__cover"><span class="cover__glyph" aria-hidden="true">🎧</span></div>
+      <div style="min-width:0">
+        <div class="mini-player__title">The Quick Brief</div>
+        <div class="mini-player__sub">Today · 10 min</div>
+      </div>
+    </div>
+    <div class="mini-player__center">
+      <div class="mini-player__controls">
+        <button class="icon-btn" aria-label="Previous"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg></button>
+        <button class="icon-btn" data-play-toggle aria-pressed="false" aria-label="Play">
+          <svg data-icon-play viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          <svg data-icon-pause viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="display:none"><path d="M7 5h4v14H7zm6 0h4v14h-4z"/></svg>
+        </button>
+        <button class="icon-btn" aria-label="Next"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 6h2v12h-2zM6 6l8.5 6L6 18z"/></svg></button>
+      </div>
+      <div class="mini-player__bar"><span></span></div>
+    </div>
+    <div class="mini-player__right">
+      <span style="font-size:.8rem;color:var(--text-faint)">3:24 / 10:02</span>
+      <button class="icon-btn" aria-label="Volume"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z" fill="currentColor"/><path d="M16 9a3 3 0 0 1 0 6m3-9a7 7 0 0 1 0 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

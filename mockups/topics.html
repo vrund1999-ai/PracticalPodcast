@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Today's news · PracticalPodcast</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="index.html">
+        <span class="brand__mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 3a4 4 0 0 0-4 4v5a4 4 0 0 0 8 0V7a4 4 0 0 0-4-4Z" fill="currentColor"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </span>
+        PracticalPodcast
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a href="library.html">Podcasts</a>
+        <a href="topics.html" aria-current="page">Discover</a>
+        <a href="account.html">Settings</a>
+      </nav>
+      <div class="topbar__spacer"></div>
+      <div class="topbar__actions">
+        <button class="icon-btn" data-theme-toggle aria-pressed="false" aria-label="Switch to light mode" title="Switch to light mode">
+          <svg data-icon-sun viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <svg data-icon-moon viewBox="0 0 24 24" fill="none" aria-hidden="true" style="display:none"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        </button>
+        <a href="account.html" class="avatar" aria-label="Your account">VR</a>
+      </div>
+    </header>
+
+    <main id="main" class="page">
+      <div class="page-head">
+        <div>
+          <h1>Today's news</h1>
+          <p>The top stories we sourced this morning — these feed today's three podcasts. Saturday, June 13, 2026.</p>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <div class="chips" data-chip-group>
+          <button type="button" class="chip is-active" aria-pressed="true">All topics</button>
+          <button type="button" class="chip" aria-pressed="false"><span class="chip__emoji" aria-hidden="true">💰</span> Finance</button>
+          <button type="button" class="chip" aria-pressed="false"><span class="chip__emoji" aria-hidden="true">🌍</span> Geopolitics</button>
+          <button type="button" class="chip" aria-pressed="false"><span class="chip__emoji" aria-hidden="true">💻</span> Technology</button>
+          <button type="button" class="chip" aria-pressed="false"><span class="chip__emoji" aria-hidden="true">🔬</span> Science</button>
+          <button type="button" class="chip" aria-pressed="false"><span class="chip__emoji" aria-hidden="true">🏛️</span> Politics</button>
+        </div>
+      </div>
+
+      <!-- Finance -->
+      <section class="topic-block">
+        <div class="topic-block__head">
+          <span class="topic-block__icon cover--finance" aria-hidden="true">💰</span>
+          <h2 style="margin:0">Finance</h2>
+        </div>
+        <div class="news-grid">
+          <article class="news-card">
+            <div class="news-card__src"><span>Reuters</span><span>·</span><span>5:12 AM</span></div>
+            <h4>Fed signals a pause as inflation cools to 2.4%</h4>
+            <p style="font-size:.9rem">Policymakers held rates steady and hinted the tightening cycle may be over, sending equities higher in pre-market trading.</p>
+            <span class="news-card__included"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true" style="width:14px;height:14px"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg> In today's podcasts</span>
+          </article>
+          <article class="news-card">
+            <div class="news-card__src"><span>Bloomberg</span><span>·</span><span>2:55 AM</span></div>
+            <h4>Markets rally as chipmakers post record quarter</h4>
+            <p style="font-size:.9rem">Semiconductor earnings beat expectations across the board, lifting the broader tech index to a fresh high.</p>
+            <span class="news-card__included"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true" style="width:14px;height:14px"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg> In today's podcasts</span>
+          </article>
+        </div>
+      </section>
+
+      <!-- Geopolitics -->
+      <section class="topic-block">
+        <div class="topic-block__head">
+          <span class="topic-block__icon cover--geo" aria-hidden="true">🌍</span>
+          <h2 style="margin:0">Geopolitics</h2>
+        </div>
+        <div class="news-grid">
+          <article class="news-card">
+            <div class="news-card__src"><span>Associated Press</span><span>·</span><span>4:48 AM</span></div>
+            <h4>EU and Mercosur finalize landmark trade pact</h4>
+            <p style="font-size:.9rem">After two decades of negotiation, the agreement creates one of the world's largest free-trade zones.</p>
+            <span class="news-card__included"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true" style="width:14px;height:14px"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg> In today's podcasts</span>
+          </article>
+          <article class="news-card">
+            <div class="news-card__src"><span>The Guardian</span><span>·</span><span>1:20 AM</span></div>
+            <h4>Pacific summit ends with new climate-finance accord</h4>
+            <p style="font-size:.9rem">Island nations secured fresh funding commitments from major economies at the close of the three-day summit.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Technology -->
+      <section class="topic-block">
+        <div class="topic-block__head">
+          <span class="topic-block__icon cover--tech" aria-hidden="true">💻</span>
+          <h2 style="margin:0">Technology</h2>
+        </div>
+        <div class="news-grid">
+          <article class="news-card">
+            <div class="news-card__src"><span>The Verge</span><span>·</span><span>3:30 AM</span></div>
+            <h4>New solid-state battery hits 1,000-mile range in trials</h4>
+            <p style="font-size:.9rem">A startup's prototype cell could reshape EV economics if it survives independent durability testing.</p>
+            <span class="news-card__included"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true" style="width:14px;height:14px"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg> In today's podcasts</span>
+          </article>
+          <article class="news-card">
+            <div class="news-card__src"><span>Ars Technica</span><span>·</span><span>12:05 AM</span></div>
+            <h4>Open-source model matches frontier labs on reasoning</h4>
+            <p style="font-size:.9rem">Researchers released weights and training data, reigniting the debate over open vs. closed AI development.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Mini player -->
+  <div class="mini-player" role="region" aria-label="Now playing">
+    <div class="mini-player__now">
+      <div class="cover cover--tech mini-player__cover"><span class="cover__glyph" aria-hidden="true">🎙️</span></div>
+      <div style="min-width:0">
+        <div class="mini-player__title">The Daily Deep Dive</div>
+        <div class="mini-player__sub">Today · 30 min · Nova &amp; Atlas</div>
+      </div>
+    </div>
+    <div class="mini-player__center">
+      <div class="mini-player__controls">
+        <button class="icon-btn" aria-label="Previous"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg></button>
+        <button class="icon-btn" data-play-toggle aria-pressed="true" aria-label="Pause">
+          <svg data-icon-play viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="display:none"><path d="M8 5v14l11-7z"/></svg>
+          <svg data-icon-pause viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h4v14H7zm6 0h4v14h-4z"/></svg>
+        </button>
+        <button class="icon-btn" aria-label="Next"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 6h2v12h-2zM6 6l8.5 6L6 18z"/></svg></button>
+      </div>
+      <div class="mini-player__bar"><span></span></div>
+    </div>
+    <div class="mini-player__right">
+      <span style="font-size:.8rem;color:var(--text-faint)">10:18 / 30:00</span>
+      <button class="icon-btn" aria-label="Volume"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z" fill="currentColor"/><path d="M16 9a3 3 0 0 1 0 6m3-9a7 7 0 0 1 0 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
