@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verify code · PracticalPodcast</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="position:fixed;top:16px;right:16px;z-index:100">
+    <button class="icon-btn" data-theme-toggle aria-pressed="false" aria-label="Switch to light mode" title="Switch to light mode">
+      <svg data-icon-sun viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <svg data-icon-moon viewBox="0 0 24 24" fill="none" aria-hidden="true" style="display:none"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+
+  <main id="main" class="auth">
+    <div class="auth__card">
+      <div class="auth__brand">
+        <span class="brand__mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 3a4 4 0 0 0-4 4v5a4 4 0 0 0 8 0V7a4 4 0 0 0-4-4Z" fill="currentColor"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </span>
+        PracticalPodcast
+      </div>
+
+      <h1 class="auth__title">Enter your code</h1>
+      <p class="auth__sub">We sent a 6-digit code to <strong>you@example.com</strong>. Enter it below to sign in.</p>
+
+      <!-- Error variant: add class "is-error" to .otp and show the alert below -->
+      <div class="alert" role="alert" hidden>
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 9v4m0 4h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        That code is incorrect or expired. Please try again.
+      </div>
+
+      <form action="onboarding.html" method="get">
+        <div class="otp" role="group" aria-label="6-digit verification code">
+          <input type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="1" aria-label="Digit 1" autofocus />
+          <input type="text" inputmode="numeric" maxlength="1" aria-label="Digit 2" />
+          <input type="text" inputmode="numeric" maxlength="1" aria-label="Digit 3" />
+          <input type="text" inputmode="numeric" maxlength="1" aria-label="Digit 4" />
+          <input type="text" inputmode="numeric" maxlength="1" aria-label="Digit 5" />
+          <input type="text" inputmode="numeric" maxlength="1" aria-label="Digit 6" />
+        </div>
+        <p class="field__hint" style="text-align:center;margin-bottom:18px">Tip: you can paste the whole code at once.</p>
+
+        <button class="btn btn--primary btn--block btn--lg" type="submit">Verify &amp; sign in</button>
+      </form>
+
+      <p class="auth__foot">
+        Didn't get it? <a href="#">Resend code</a> in 0:42 ·
+        <a href="signin.html">Wrong email?</a>
+      </p>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
