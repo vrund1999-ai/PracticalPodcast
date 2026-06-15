@@ -1,0 +1,165 @@
+// PracticalPodcast data model (SQLite via Prisma).
+// NOTE: SQLite does not support native enums in Prisma, so "enum-like" columns
+// (episode status, transcript speaker) are Strings constrained in app code
+// (see src/lib/constants.ts). Episode length is stored as minutes (10|30|60),
+// which maps directly to the frontend `data-card-len`.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String    @id @default(cuid())
+  email          String    @unique
+  themePref      String    @default("system") // system | light | dark
+  defaultSpeed   Float     @default(1.25)
+  autoplay       Boolean   @default(true)
+  emailDigest    Boolean   @default(true)
+  breakingAlerts Boolean   @default(false)
+  onboardedAt    DateTime? // null => still needs onboarding
+  createdAt      DateTime  @default(now())
+
+  topics   UserTopic[]
+  sessions Session[]
+  playback PlaybackState[]
+}
+
+model Topic {
+  id              String  @id @default(cuid())
+  slug            String  @unique // finance, technology, ai, ...
+  name            String // Finance
+  emoji           String // 💰
+  colorClass      String // cover--finance (mapped onto the 8 + mix palette)
+  newsapiCategory String? // /top-headlines category when native
+  newsapiQuery    String? // /everything query otherwise
+  sortOrder       Int     @default(0)
+
+  users    UserTopic[]
+  articles Article[]
+
+  @@index([slug])
+}
+
+model UserTopic {
+  userId  String
+  topicId String
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  topic   Topic  @relation(fields: [topicId], references: [id], onDelete: Cascade)
+
+  @@id([userId, topicId])
+}
+
+model OtpCode {
+  id        String   @id @default(cuid())
+  email     String // normalized lowercase
+  codeHash  String // sha256(code + OTP_PEPPER)
+  expiresAt DateTime
+  consumed  Boolean  @default(false)
+  attempts  Int      @default(0)
+  createdAt DateTime @default(now())
+
+  @@index([email, consumed])
+}
+
+model Session {
+  id        String   @id @default(cuid()) // opaque token = id
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+
+model Article {
+  id          String    @id @default(cuid())
+  headline    String
+  summary     String?
+  source      String
+  url         String
+  topicId     String
+  topic       Topic     @relation(fields: [topicId], references: [id])
+  publishedAt DateTime?
+  sourcedDate String // YYYY-MM-DD (app-local)
+  rank        Int       @default(0)
+  createdAt   DateTime  @default(now())
+
+  episodes EpisodeArticle[]
+
+  @@unique([url, sourcedDate]) // dedupe same story same day -> idempotent re-runs
+  @@index([sourcedDate, topicId])
+}
+
+model Episode {
+  id              String    @id @default(cuid())
+  date            String // YYYY-MM-DD (app-local)
+  lengthMinutes   Int // 10 | 30 | 60
+  title           String
+  coverGlyph      String // 🎧 🎙️ 📻
+  colorClass      String
+  status          String    @default("PENDING") // PENDING | GENERATING | READY | FAILED
+  audioUrl        String?
+  durationSeconds Int?
+  scriptJson      Json?
+  errorMessage    String?
+  generatedAt     DateTime?
+  createdAt       DateTime  @default(now())
+
+  chapters Chapter[]
+  lines    TranscriptLine[]
+  articles EpisodeArticle[]
+  playback PlaybackState[]
+
+  @@unique([date, lengthMinutes]) // one episode per day + length (idempotency)
+  @@index([date])
+}
+
+model EpisodeArticle {
+  episodeId String
+  articleId String
+  order     Int     @default(0)
+  episode   Episode @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+  article   Article @relation(fields: [articleId], references: [id], onDelete: Cascade)
+
+  @@id([episodeId, articleId])
+}
+
+model Chapter {
+  id           String  @id @default(cuid())
+  episodeId    String
+  episode      Episode @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+  title        String
+  startSeconds Int
+  topicsCsv    String? // "Finance,Markets" (display only)
+  order        Int     @default(0)
+
+  @@index([episodeId, order])
+}
+
+model TranscriptLine {
+  id           String  @id @default(cuid())
+  episodeId    String
+  episode      Episode @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+  speaker      String // NOVA | ATLAS
+  startSeconds Int
+  text         String
+  order        Int
+
+  @@index([episodeId, order])
+}
+
+model PlaybackState {
+  userId          String
+  episodeId       String
+  positionSeconds Int      @default(0)
+  updatedAt       DateTime @updatedAt
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  episode         Episode  @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+
+  @@id([userId, episodeId])
+}
