@@ -477,6 +477,32 @@ img { max-width: 100%; display: block; }
 
 .section-label { font-size: .8rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--text-faint); margin: 34px 0 14px; }
 
+/* ---------- Landing (index) ---------- */
+/* Informational feature cards aren't links — drop the hover-lift affordance. */
+.gallery-card--static { cursor: default; }
+.gallery-card--static:hover { transform: none; border-color: var(--border); }
+
+.landing-cta { margin-top: 26px; }
+.landing-note { max-width: 520px; margin: 14px auto 0; font-size: .9rem; color: var(--text-muted); }
+
+/* Pre-redirect placeholder: keeps the marketing copy hidden until we know the
+   visitor is signed out (a signed-in visitor is redirected without a flash). */
+.landing-loading { min-height: 60vh; display: flex; align-items: center; justify-content: center; }
+.landing-loading[hidden] { display: none; }
+
+.spinner {
+  width: 30px; height: 30px; border-radius: 50%;
+  border: 3px solid var(--border-strong); border-top-color: var(--accent);
+  animation: pp-spin .8s linear infinite;
+}
+@keyframes pp-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .spinner { animation-duration: 2.4s; } }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
 /* ---------- Responsive ---------- */
 @media (max-width: 900px) {
   .player-layout { grid-template-columns: 1fr; }
