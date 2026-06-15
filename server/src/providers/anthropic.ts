@@ -3,39 +3,20 @@ import { getPipelineEnv } from "../config/env";
 import type { LengthMeta } from "../lib/constants";
 import { SCRIPT_SYSTEM_PROMPT } from "../pipeline/prompts/system";
 import { SCRIPT_SCHEMA, type GeneratedScript } from "../pipeline/prompts/schema";
+import { buildUserMessage, type ScriptArticle } from "./script-shared";
+
+export type { ScriptArticle };
 
 let client: Anthropic | null = null;
 function getClient(): Anthropic {
   const env = getPipelineEnv();
-  client ??= new Anthropic({ apiKey: env.ANTHROPIC_API_KEY });
+  client ??= new Anthropic({ apiKey: env.ANTHROPIC_API_KEY! });
   return client;
-}
-
-export interface ScriptArticle {
-  headline: string;
-  source: string;
-  topicName: string;
-  summary?: string | null;
-}
-
-function buildUserMessage(articles: ScriptArticle[], meta: LengthMeta, dateDisplay: string): string {
-  const list = articles
-    .map(
-      (a, i) =>
-        `${i + 1}. [${a.topicName}] "${a.headline}" — ${a.source}${a.summary ? ` — ${a.summary}` : ""}`
-    )
-    .join("\n");
-  return (
-    `Write the "${meta.title}" episode — ${meta.minutes} minutes, target about ${meta.targetWords} words.\n\n` +
-    `Today is ${dateDisplay}.\n\n` +
-    `Today's sourced stories, most important first:\n${list}\n\n` +
-    `Use the exact episode title "${meta.title}". Cover the stories at a depth appropriate to a ${meta.minutes}-minute episode.`
-  );
 }
 
 /** Generate one episode's structured two-host script via Claude (streaming,
  *  adaptive thinking, prompt-cached system prompt, structured JSON output). */
-export async function generateScript(
+export async function generateScriptAnthropic(
   articles: ScriptArticle[],
   meta: LengthMeta,
   dateDisplay: string

@@ -53,14 +53,41 @@ export const PATHS = {
 
 // ----- Pipeline provider config (validated lazily, only when the pipeline runs) -----
 
-const pipelineSchema = z.object({
-  ANTHROPIC_API_KEY: z.string().min(1, "ANTHROPIC_API_KEY is required for the pipeline"),
-  NEWSAPI_KEY: z.string().min(1, "NEWSAPI_KEY is required for the pipeline"),
-  ELEVENLABS_API_KEY: z.string().min(1, "ELEVENLABS_API_KEY is required for the pipeline"),
-  ELEVENLABS_VOICE_NOVA: z.string().min(1, "ELEVENLABS_VOICE_NOVA (female voice id) is required"),
-  ELEVENLABS_VOICE_ATLAS: z.string().min(1, "ELEVENLABS_VOICE_ATLAS (male voice id) is required"),
-  // Email (Gmail SMTP) is best-effort and validated in the email provider, not here.
-});
+const pipelineSchema = z
+  .object({
+    // Which model writes the scripts. Each provider's key is required only when selected.
+    LLM_PROVIDER: z.enum(["anthropic", "groq"]).default("anthropic"),
+    ANTHROPIC_API_KEY: z.string().optional(),
+    GROQ_API_KEY: z.string().optional(),
+    NEWSAPI_KEY: z.string().min(1, "NEWSAPI_KEY is required for the pipeline"),
+    // Text-to-speech provider. "edge" needs no key/quota; "elevenlabs" needs key + voices.
+    TTS_PROVIDER: z.enum(["elevenlabs", "edge"]).default("elevenlabs"),
+    ELEVENLABS_API_KEY: z.string().optional(),
+    ELEVENLABS_VOICE_NOVA: z.string().optional(),
+    ELEVENLABS_VOICE_ATLAS: z.string().optional(),
+    // Email (Gmail SMTP) is best-effort and validated in the email provider, not here.
+  })
+  .superRefine((val, ctx) => {
+    const missing = (path: string, message: string) =>
+      ctx.addIssue({ code: z.ZodIssueCode.custom, path: [path], message });
+
+    // Script provider key.
+    if (val.LLM_PROVIDER === "groq") {
+      if (!val.GROQ_API_KEY) missing("GROQ_API_KEY", 'GROQ_API_KEY is required when LLM_PROVIDER="groq"');
+    } else if (!val.ANTHROPIC_API_KEY) {
+      missing("ANTHROPIC_API_KEY", 'ANTHROPIC_API_KEY is required when LLM_PROVIDER="anthropic"');
+    }
+
+    // TTS provider config (Edge needs nothing).
+    if (val.TTS_PROVIDER === "elevenlabs") {
+      if (!val.ELEVENLABS_API_KEY)
+        missing("ELEVENLABS_API_KEY", 'ELEVENLABS_API_KEY is required when TTS_PROVIDER="elevenlabs"');
+      if (!val.ELEVENLABS_VOICE_NOVA)
+        missing("ELEVENLABS_VOICE_NOVA", 'ELEVENLABS_VOICE_NOVA is required when TTS_PROVIDER="elevenlabs"');
+      if (!val.ELEVENLABS_VOICE_ATLAS)
+        missing("ELEVENLABS_VOICE_ATLAS", 'ELEVENLABS_VOICE_ATLAS is required when TTS_PROVIDER="elevenlabs"');
+    }
+  });
 
 export type PipelineEnv = z.infer<typeof pipelineSchema>;
 
