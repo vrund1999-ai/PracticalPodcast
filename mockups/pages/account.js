@@ -85,7 +85,7 @@
       var spdBtn = activeButton(speedSeg);
       var settings = {
         themePref: appBtn ? appBtn.textContent.trim().toLowerCase() : "system",
-        defaultSpeed: spdBtn ? parseFloat(spdBtn.textContent) : 1.25,
+        defaultSpeed: spdBtn ? parseFloat(spdBtn.textContent) : 1.0,
         autoplay: autoplayCb ? autoplayCb.checked : true,
         emailDigest: digestCb ? digestCb.checked : true,
         breakingAlerts: breakingCb ? breakingCb.checked : false,

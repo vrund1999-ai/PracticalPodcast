@@ -17,7 +17,7 @@ model User {
   id             String    @id @default(cuid())
   email          String    @unique
   themePref      String    @default("system") // system | light | dark
-  defaultSpeed   Float     @default(1.25)
+  defaultSpeed   Float     @default(1.0)
   autoplay       Boolean   @default(true)
   emailDigest    Boolean   @default(true)
   breakingAlerts Boolean   @default(false)

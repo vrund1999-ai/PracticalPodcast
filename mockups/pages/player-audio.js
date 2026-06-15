@@ -47,7 +47,7 @@
 
     var duration = ep.durationSeconds || 0;
     var startAt = (detail.playback && detail.playback.positionSeconds) || 0;
-    var speedIdx = Math.max(0, SPEEDS.indexOf(user && user.defaultSpeed ? user.defaultSpeed : 1.25));
+    var speedIdx = Math.max(0, SPEEDS.indexOf(user && user.defaultSpeed ? user.defaultSpeed : 1.0));
     if (speedIdx < 0) speedIdx = 0;
 
     if (!ep.audioUrl) {
@@ -115,6 +115,100 @@
       setTimeout(function () { queueBtn.textContent = "Add to queue"; }, 1500);
     });
 
+    // ---- Transcript / chapter sync (live highlight + click-to-seek) ----
+    // Both lists are rendered (by player.js) before initPlayer runs and carry a
+    // data-start (seconds) on each row — see episode.service.ts.
+    var transcriptPanel = PP.qs("#panel-transcript");
+    var transcriptTargets = buildTargets("#panel-transcript .transcript-line[data-start]");
+    var chapterTargets = buildTargets("#panel-chapters .row[data-start]");
+    var lastLineIdx = -1;
+    var lastChapterIdx = -1;
+    var lastManualScroll = 0; // timestamp of the user's last manual scroll
+
+    function buildTargets(sel) {
+      return PP.qsa(sel).map(function (node) {
+        var s = Number(node.getAttribute("data-start"));
+        return { el: node, start: isFinite(s) ? s : 0 };
+      });
+    }
+
+    // Move the playhead (clamped) and persist the new resume position.
+    function seek(t) {
+      t = Math.min(duration || 0, Math.max(0, t));
+      audio.currentTime = t;
+      renderProgress();
+      save();
+    }
+    // Clicking a line/chapter jumps there and starts playback, and re-engages
+    // auto-follow immediately (cancels any manual-scroll suspension).
+    function activate(start) {
+      lastManualScroll = 0;
+      seek(start);
+      audio.play().catch(function () {});
+    }
+    function makeInteractive(targets) {
+      targets.forEach(function (t) {
+        t.el.classList.add("is-clickable");
+        t.el.setAttribute("role", "button");
+        t.el.setAttribute("tabindex", "0");
+        t.el.setAttribute("aria-label", "Jump to " + PP.fmtTime(t.start));
+        t.el.addEventListener("click", function () { activate(t.start); });
+        t.el.addEventListener("keydown", function (e) {
+          if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") {
+            e.preventDefault();
+            activate(t.start);
+          }
+        });
+      });
+    }
+    makeInteractive(transcriptTargets);
+    makeInteractive(chapterTargets);
+
+    // Index of the last target whose start time is at/below the current time.
+    function activeIndex(targets, cur) {
+      var idx = -1;
+      for (var i = 0; i < targets.length; i++) {
+        if (targets[i].start <= cur + 0.25) idx = i; else break;
+      }
+      return idx;
+    }
+    function setCurrent(targets, prevIdx, nextIdx) {
+      if (prevIdx >= 0 && targets[prevIdx]) {
+        targets[prevIdx].el.classList.remove("is-current");
+        targets[prevIdx].el.removeAttribute("aria-current");
+      }
+      if (nextIdx >= 0 && targets[nextIdx]) {
+        targets[nextIdx].el.classList.add("is-current");
+        targets[nextIdx].el.setAttribute("aria-current", "true");
+      }
+    }
+    function highlightCurrent(cur) {
+      var li = activeIndex(transcriptTargets, cur);
+      if (li !== lastLineIdx) {
+        setCurrent(transcriptTargets, lastLineIdx, li);
+        lastLineIdx = li;
+        // Auto-follow: keep the active line in view, unless the transcript tab
+        // is hidden or the user scrolled in the last few seconds.
+        if (li >= 0 && transcriptPanel && !transcriptPanel.hasAttribute("hidden") &&
+            Date.now() - lastManualScroll > 4000) {
+          transcriptTargets[li].el.scrollIntoView({ block: "nearest", behavior: "smooth" });
+        }
+      }
+      var ci = activeIndex(chapterTargets, cur);
+      if (ci !== lastChapterIdx) {
+        setCurrent(chapterTargets, lastChapterIdx, ci);
+        lastChapterIdx = ci;
+      }
+    }
+
+    // Manual scroll/wheel/touch suspends auto-follow (these don't fire from our
+    // own programmatic scrollIntoView, so they cleanly signal user intent).
+    function markManual() { lastManualScroll = Date.now(); }
+    window.addEventListener("wheel", markManual, { passive: true });
+    window.addEventListener("touchmove", markManual, { passive: true });
+
+    highlightCurrent(audio.currentTime || 0); // initial paint
+
     // ---- Progress rendering ----
     function renderProgress() {
       var cur = audio.currentTime || 0;
@@ -126,6 +220,7 @@
       if (timeSpans[1]) timeSpans[1].textContent = remaining(cur, duration);
       if (miniBar) miniBar.style.width = p + "%";
       if (miniTime) miniTime.textContent = PP.fmtTime(cur) + " / " + PP.fmtTime(duration);
+      highlightCurrent(cur);
     }
     audio.addEventListener("timeupdate", renderProgress);
 
