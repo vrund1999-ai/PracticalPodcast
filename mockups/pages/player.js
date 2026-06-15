@@ -79,7 +79,7 @@
       }
       detail.lines.forEach(function (l) {
         tr.appendChild(
-          el("div", { class: "transcript-line " + l.lineClass }, [
+          el("div", { class: "transcript-line " + l.lineClass, "data-start": String(l.startSeconds) }, [
             el("div", { class: "transcript-line__who" }, [l.name + " ", el("small", { text: l.timecode })]),
             el("p", { text: l.text }),
           ])
@@ -93,7 +93,7 @@
       ch.innerHTML = "";
       detail.chapters.forEach(function (c) {
         ch.appendChild(
-          el("div", { class: "row" }, [
+          el("div", { class: "row", "data-start": String(c.startSeconds) }, [
             el("div", {}, [
               el("div", { class: "row__label", text: c.title }),
               el("div", { class: "row__desc", text: c.topics.join(" · ") }),
