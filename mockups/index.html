@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PracticalPodcast — UI Mockups</title>
-  <meta name="description" content="Design mockup gallery for the PracticalPodcast web app." />
+  <title>PracticalPodcast — your daily news, as a podcast</title>
+  <meta name="description" content="PracticalPodcast turns the day's top stories on the topics you choose into a fresh, AI-narrated podcast — a new 10, 30, or 60-minute episode every morning." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -26,83 +26,71 @@
         <svg data-icon-sun viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
         <svg data-icon-moon viewBox="0 0 24 24" fill="none" aria-hidden="true" style="display:none"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
       </button>
+      <a class="btn btn--ghost" href="signin.html">Sign in</a>
     </div>
   </header>
 
   <main id="main">
-    <section class="hero">
-      <h1>PracticalPodcast — UI Mockups</h1>
-      <p>Static, clickable designs for every flow. Sleek dark-first audio app with full light/dark support, accessibility built in. Use the toggle (top-right) to switch themes — your choice persists across pages.</p>
-    </section>
+    <!-- Shown while we check whether the visitor is already signed in. A signed-in
+         visitor is redirected into the app before the marketing copy ever paints. -->
+    <div class="landing-loading" data-landing-loading>
+      <span class="spinner" aria-hidden="true"></span>
+      <span class="sr-only">Loading…</span>
+    </div>
 
-    <div class="container">
-      <p class="section-label">Authentication flow</p>
-      <div class="gallery">
-        <a class="gallery-card" href="signin.html">
-          <div class="gallery-card__thumb" aria-hidden="true">📧</div>
-          <div class="gallery-card__body">
-            <span class="flow-step">Step 1</span>
-            <h3>Sign in</h3>
-            <p>Email-only entry. Enter an address to receive a verification code.</p>
-          </div>
-        </a>
-        <a class="gallery-card" href="verify.html">
-          <div class="gallery-card__thumb" aria-hidden="true">🔑</div>
-          <div class="gallery-card__body">
-            <span class="flow-step">Step 2</span>
-            <h3>Verify code (2FA)</h3>
-            <p>6-digit one-time code with resend timer and error state.</p>
-          </div>
-        </a>
-        <a class="gallery-card" href="onboarding.html">
-          <div class="gallery-card__thumb" aria-hidden="true">🎯</div>
-          <div class="gallery-card__body">
-            <span class="flow-step">Step 3 · first run</span>
-            <h3>Pick your topics</h3>
-            <p>Choose the news topics you care about most.</p>
-          </div>
-        </a>
-      </div>
+    <!-- Revealed by pages/landing.js only for signed-out visitors. -->
+    <div data-landing-content hidden>
+      <section class="hero">
+        <h1>Your news, as a daily podcast.</h1>
+        <p>PracticalPodcast turns the day's top stories on the topics you choose into a fresh, AI-narrated episode — ready every morning in a 10, 30, or 60-minute edition, hosted by two AI voices with a full transcript.</p>
+        <div class="landing-cta">
+          <a class="btn btn--primary btn--lg" href="signin.html">
+            Sign in to get started
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m0 0-6-6m6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <p class="landing-note">You'll need to sign in to start listening — it's free, and we'll create your account automatically.</p>
+        </div>
+      </section>
 
-      <p class="section-label">Signed-in app</p>
-      <div class="gallery">
-        <a class="gallery-card" href="library.html">
-          <div class="gallery-card__thumb" aria-hidden="true">🎧</div>
-          <div class="gallery-card__body">
-            <span class="flow-step">Home</span>
-            <h3>Podcast library</h3>
-            <p>Episodes grouped by date — 10m, 30m &amp; 1h per day, with a length filter.</p>
+      <div class="container">
+        <p class="section-label">What you get</p>
+        <div class="gallery">
+          <div class="gallery-card gallery-card--static">
+            <div class="gallery-card__thumb" aria-hidden="true">🎧</div>
+            <div class="gallery-card__body">
+              <h3>Daily AI news podcasts</h3>
+              <p>A new episode every day, generated from real, freshly sourced headlines — not yesterday's news.</p>
+            </div>
           </div>
-        </a>
-        <a class="gallery-card" href="player.html">
-          <div class="gallery-card__thumb" aria-hidden="true">▶️</div>
-          <div class="gallery-card__body">
-            <span class="flow-step">Playback</span>
-            <h3>Episode player</h3>
-            <p>Male &amp; female AI hosts, scrubber, show notes and full transcript.</p>
+          <div class="gallery-card gallery-card--static">
+            <div class="gallery-card__thumb" aria-hidden="true">🎯</div>
+            <div class="gallery-card__body">
+              <h3>Topics you pick</h3>
+              <p>Choose the subjects you care about — finance, technology, AI and more — and hear only those.</p>
+            </div>
           </div>
-        </a>
-        <a class="gallery-card" href="topics.html">
-          <div class="gallery-card__thumb" aria-hidden="true">🗞️</div>
-          <div class="gallery-card__body">
-            <span class="flow-step">Discover</span>
-            <h3>Today's news by topic</h3>
-            <p>The sourced articles that feed each day's podcasts.</p>
+          <div class="gallery-card gallery-card--static">
+            <div class="gallery-card__thumb" aria-hidden="true">⏱️</div>
+            <div class="gallery-card__body">
+              <h3>10 / 30 / 60-min editions</h3>
+              <p>Pick the length that fits your morning, from a quick brief to a deeper dive.</p>
+            </div>
           </div>
-        </a>
-        <a class="gallery-card" href="account.html">
-          <div class="gallery-card__thumb" aria-hidden="true">⚙️</div>
-          <div class="gallery-card__body">
-            <span class="flow-step">Settings</span>
-            <h3>Account &amp; settings</h3>
-            <p>Profile, preferred topics, theme preference, playback defaults.</p>
+          <div class="gallery-card gallery-card--static">
+            <div class="gallery-card__thumb" aria-hidden="true">🎙️</div>
+            <div class="gallery-card__body">
+              <h3>Two AI hosts + transcript</h3>
+              <p>A natural back-and-forth between two voices, with a full, searchable transcript you can jump around in.</p>
+            </div>
           </div>
-        </a>
+        </div>
+        <div style="height:48px"></div>
       </div>
-      <div style="height:48px"></div>
     </div>
   </main>
 
   <script src="app.js"></script>
+  <script src="api.js"></script>
+  <script src="pages/landing.js"></script>
 </body>
 </html>

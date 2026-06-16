@@ -5,8 +5,8 @@ import { env, getPipelineEnv, PATHS } from "../config/env";
 import { appToday, dayDisplayDate } from "../lib/dates";
 import { EPISODE_LENGTHS, EPISODE_STATUS, lengthMeta, type LengthMeta } from "../lib/constants";
 import { fetchTopicArticles } from "../providers/newsapi";
-import { generateScript, type ScriptArticle } from "../providers/anthropic";
-import { synthesizeLine } from "../providers/elevenlabs";
+import { generateScript, type ScriptArticle } from "../providers/llm";
+import { synthesizeLine } from "../providers/tts";
 import { writeBuffer, probeDuration, concatToFile } from "../providers/audio";
 import { sendDigestEmail } from "../providers/email";
 
